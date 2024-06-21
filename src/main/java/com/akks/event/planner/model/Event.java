@@ -1,9 +1,8 @@
 package com.akks.event.planner.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class Event {
@@ -15,14 +14,38 @@ public class Event {
     private String title;
     private String location;
 
+    @ManyToOne
+    @JoinColumn(name = "venue_id", nullable = false)
+    private Venue venue;
+
+    @ManyToOne
+    @JoinColumn(name = "organizer_id", nullable = false)
+    private Organizer organizer;
+
+    @ManyToMany
+    @JoinTable(
+            name = "event_category",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categories;
+
+    @OneToMany(mappedBy = "event")
+    @JsonIgnore
+    private List<Ticket> tickets;
+
     public Event() {}
 
-    public Event(String date, String imageUrl, String title, String location) {
+    public Event(String date, String imageUrl, String title, String location, Venue venue, Organizer organizer) {
         this.date = date;
         this.imageUrl = imageUrl;
         this.title = title;
         this.location = location;
+        this.venue = venue;
+        this.organizer = organizer;
     }
+
+    // getters and setters
 
     public Long getId() {
         return id;
@@ -62,5 +85,37 @@ public class Event {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Venue getVenue() {
+        return venue;
+    }
+
+    public void setVenue(Venue venue) {
+        this.venue = venue;
+    }
+
+    public Organizer getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(Organizer organizer) {
+        this.organizer = organizer;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 }

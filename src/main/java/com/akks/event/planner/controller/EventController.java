@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/events")
+@RequestMapping("/api/events")
 public class EventController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class EventController {
 
     @PostMapping
     public Event createEvent(@RequestBody Event event) {
-        return eventService.saveEvent(event);
+        return eventService.createEvent(event);
     }
 
     @PutMapping("/{id}")
@@ -41,7 +41,7 @@ public class EventController {
                     existingEvent.setImageUrl(event.getImageUrl());
                     existingEvent.setTitle(event.getTitle());
                     existingEvent.setLocation(event.getLocation());
-                    eventService.saveEvent(existingEvent);
+                    eventService.updateEvent(existingEvent.getId(), existingEvent);
                     return ResponseEntity.ok(existingEvent);
                 })
                 .orElse(ResponseEntity.notFound().build());
