@@ -1,4 +1,4 @@
-package com.akks.event.planner.config;
+package com.akks.event.planner.data;
 
 import com.akks.event.planner.model.*;
 import com.akks.event.planner.service.*;
@@ -58,8 +58,8 @@ public class DataInitializer implements CommandLineRunner {
         eventService.createEvent(event2);
 
         // Create Users
-        User user1 = new User("Alice", "alice@example.com", "password123");
-        User user2 = new User("Bob", "bob@example.com", "password456");
+        User user1 = new User("Alice", "alice@example.com", "password123", UserRole.USER);
+        User user2 = new User("Bob", "bob@example.com", "password456", UserRole.ADMIN);
         userService.createUser(user1);
         userService.createUser(user2);
 

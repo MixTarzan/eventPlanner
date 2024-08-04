@@ -2,6 +2,8 @@ package com.akks.event.planner.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+
 import java.util.List;
 
 @Entity
@@ -18,15 +20,17 @@ public class User {
     @JsonIgnore
     private List<Ticket> tickets;
 
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+
     public User() {}
 
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password, UserRole role) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
-
-    // Getters and Setters
 
     public Long getId() {
         return id;
