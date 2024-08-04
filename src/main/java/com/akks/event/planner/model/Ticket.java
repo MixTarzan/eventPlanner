@@ -26,8 +26,6 @@ public class Ticket {
         this.seatNumber = seatNumber;
     }
 
-    // getters and setters
-
     public Long getId() {
         return id;
     }

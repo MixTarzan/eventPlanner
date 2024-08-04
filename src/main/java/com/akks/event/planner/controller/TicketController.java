@@ -3,6 +3,7 @@ package com.akks.event.planner.controller;
 import com.akks.event.planner.model.Ticket;
 import com.akks.event.planner.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class TicketController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTicket(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
         ticketService.deleteTicket(id);
-    }
-}
+        return ResponseEntity.noContent().build();
+    }}
