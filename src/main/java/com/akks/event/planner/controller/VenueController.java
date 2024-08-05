@@ -3,6 +3,7 @@ package com.akks.event.planner.controller;
 import com.akks.event.planner.model.Venue;
 import com.akks.event.planner.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +31,8 @@ public class VenueController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteVenue(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteVenue(@PathVariable Long id) {
         venueService.deleteVenue(id);
+        return ResponseEntity.noContent().build();
     }
 }
